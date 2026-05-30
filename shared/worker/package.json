@@ -1,0 +1,11 @@
+{
+  "name": "@draftly/worker",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/BaseWorker.ts",
+  "dependencies": {
+    "@draftly/config": "workspace:*",
+    "@draftly/logger": "workspace:*",
+    "bullmq": "^5.77.6"
+  }
+}

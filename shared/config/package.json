@@ -1,0 +1,12 @@
+{
+  "name": "@draftly/config",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "devDependencies": {
+    "@types/node": "^25.9.1"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2"
+  }
+}

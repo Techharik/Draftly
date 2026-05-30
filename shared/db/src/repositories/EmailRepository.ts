@@ -1,0 +1,54 @@
+import { databaseManager } from "../index.js";
+
+export interface CreateEmailInput {
+  gmailMessageId: string;
+
+  gmailThreadId: string;
+
+  subject?: string;
+
+  from?: string;
+
+  body?: string;
+}
+
+export class EmailRepository {
+  public async create(input: CreateEmailInput) {
+    const result = await databaseManager.pool.query(
+      `
+        INSERT INTO emails (
+          gmail_message_id,
+          gmail_thread_id,
+          subject,
+          "from",
+          body
+        )
+        VALUES ($1, $2, $3, $4, $5)
+        RETURNING *
+        `,
+      [
+        input.gmailMessageId,
+        input.gmailThreadId,
+        input.subject,
+        input.from,
+        input.body,
+      ],
+    );
+
+    return result.rows[0];
+  }
+
+  public async findByMessageId(gmailMessageId: string) {
+    const result = await databaseManager.pool.query(
+      `
+        SELECT *
+        FROM emails
+        WHERE gmail_message_id = $1
+        LIMIT 1
+        `,
+      [gmailMessageId],
+    );
+
+    return result.rows[0];
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "@draftly/db",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@draftly/config": "workspace:*",
+    "@draftly/logger": "workspace:*",
+    "drizzle-orm": "^0.45.2",
+    "pg": "^8.21.0"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.20.0"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "email-worker",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx src/index.ts"
+  },
+  "dependencies": {
+    "@draftly/config": "workspace:*",
+    "@draftly/logger": "workspace:*",
+    "@draftly/queue": "workspace:*",
+    "@draftly/types": "workspace:*",
+    "@draftly/worker": "workspace:*",
+    "bullmq": "^5.77.6"
+  }
+}

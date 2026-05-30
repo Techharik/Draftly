@@ -1,0 +1,10 @@
+{
+  "name": "@draftly/queue",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@draftly/config": "workspace:*",
+    "@draftly/logger": "workspace:*"
+  }
+}

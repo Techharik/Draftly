@@ -1,0 +1,11 @@
+{
+  "name": "@draftly/redis",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@draftly/config": "workspace:*",
+    "@draftly/logger": "workspace:*",
+    "ioredis": "^5.11.0"
+  }
+}
