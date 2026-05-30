@@ -15,12 +15,48 @@ export class GmailService {
       auth,
     });
   }
+  public getHeader(headers: any[] = [], name: string) {
+    return headers.find(
+      (header) => header.name?.toLowerCase() === name.toLowerCase(),
+    )?.value;
+  }
 
   public async getProfile(accessToken: string, refreshToken?: string) {
     const gmail = await this.getGmailClient(accessToken, refreshToken);
 
     const response = await gmail.users.getProfile({
       userId: "me",
+    });
+
+    return response.data;
+  }
+
+  public async getHistory(
+    accessToken: string,
+    refreshToken: string | undefined,
+    startHistoryId: string,
+  ) {
+    const gmail = await this.getGmailClient(accessToken, refreshToken);
+
+    const response = await gmail.users.history.list({
+      userId: "me",
+
+      startHistoryId,
+    });
+
+    return response.data;
+  }
+  public async getMessage(
+    accessToken: string,
+    refreshToken: string | undefined,
+    messageId: string,
+  ) {
+    const gmail = await this.getGmailClient(accessToken, refreshToken);
+
+    const response = await gmail.users.messages.get({
+      userId: "me",
+
+      id: messageId,
     });
 
     return response.data;

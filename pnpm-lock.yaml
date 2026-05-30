@@ -163,12 +163,18 @@ importers:
       '@draftly/config':
         specifier: workspace:*
         version: link:../../shared/config
+      '@draftly/db':
+        specifier: workspace:*
+        version: link:../../shared/db
       '@draftly/logger':
         specifier: workspace:*
         version: link:../../shared/logger
       '@draftly/queue':
         specifier: workspace:*
         version: link:../../shared/queue
+      '@draftly/redis':
+        specifier: workspace:*
+        version: link:../../shared/redis
       '@draftly/types':
         specifier: workspace:*
         version: link:../../shared/types

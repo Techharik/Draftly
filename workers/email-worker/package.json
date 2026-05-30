@@ -7,8 +7,10 @@
   },
   "dependencies": {
     "@draftly/config": "workspace:*",
+    "@draftly/db": "workspace:*",
     "@draftly/logger": "workspace:*",
     "@draftly/queue": "workspace:*",
+    "@draftly/redis": "workspace:*",
     "@draftly/types": "workspace:*",
     "@draftly/worker": "workspace:*",
     "bullmq": "^5.77.6"

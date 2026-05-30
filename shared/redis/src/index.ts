@@ -9,7 +9,10 @@ class RedisManager {
   constructor() {
     this.client = new Redis.default({
       host: config.REDIS_HOST,
+
       port: config.REDIS_PORT,
+
+      maxRetriesPerRequest: null,
     });
 
     this.client.on("connect", () => {

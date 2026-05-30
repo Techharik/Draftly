@@ -51,4 +51,18 @@ export class EmailRepository {
 
     return result.rows[0];
   }
+
+  public async findByGmailMessageId(gmailMessageId: string) {
+    const result = await databaseManager.pool.query(
+      `
+        SELECT *
+        FROM emails
+        WHERE gmail_message_id = $1
+        LIMIT 1
+        `,
+      [gmailMessageId],
+    );
+
+    return result.rows[0];
+  }
 }

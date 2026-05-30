@@ -62,4 +62,17 @@ export class UserRepository {
 
     return result.rows[0];
   }
+  public async findByGoogleEmail(email: string) {
+    const result = await databaseManager.pool.query(
+      `
+        SELECT *
+        FROM users
+        WHERE email = $1
+        LIMIT 1
+        `,
+      [email],
+    );
+
+    return result.rows[0];
+  }
 }

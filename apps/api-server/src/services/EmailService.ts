@@ -20,11 +20,11 @@ export class EmailService {
   }
 
   public async createEmail(input: CreateEmailDTO) {
-    const existingEmail = await this.emailRepository.findByMessageId(
+    const existingEmail = await this.emailRepository.findByGmailMessageId(
       input.gmailMessageId,
     );
 
-    throw new Error("Testing middleware");
+    // throw new Error("Testing middleware");
     if (existingEmail) {
       return existingEmail;
     }
