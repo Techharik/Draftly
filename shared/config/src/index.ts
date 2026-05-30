@@ -30,6 +30,8 @@ class Config {
 
   public readonly GOOGLE_REDIRECT_URI: string;
 
+  public readonly OPENROUTER_API_KEY: string;
+
   constructor() {
     this.NODE_ENV = process.env.NODE_ENV || "development";
 
@@ -53,6 +55,7 @@ class Config {
     this.GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || "";
 
     this.GOOGLE_REDIRECT_URI = process.env.GOOGLE_REDIRECT_URI || "";
+    this.OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY || "";
   }
 }
 

@@ -30,3 +30,4 @@ class RedisManager {
 }
 
 export const redisManager = new RedisManager();
+export * from "./pubsub.js";

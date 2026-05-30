@@ -3,3 +3,5 @@ export enum QueueName {
   AI_DRAFT = "ai-draft",
   EMAIL_SEND = "email-send",
 }
+
+export * from "./events.js";

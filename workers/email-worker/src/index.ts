@@ -8,11 +8,17 @@ import { QueueName } from "@draftly/types";
 
 import { UserRepository } from "@draftly/db";
 
+import { queueManager } from "@draftly/queue";
+
 import { GmailService } from "../../../apps/api-server/src/services/GmailService.js";
+
 import { EmailService } from "../../../apps/api-server/src/services/EmailService.js";
+
 const userRepository = new UserRepository();
 
 const gmailService = new GmailService();
+
+const emailService = new EmailService();
 
 const worker = new Worker(
   QueueName.EMAIL_FETCH,
@@ -45,39 +51,75 @@ const worker = new Worker(
     const historyItems = history.history || [];
 
     for (const item of historyItems) {
-      const messages = item.messages || [];
+      // ONLY NEWLY ADDED EMAILS
+      const messages = item.messagesAdded || [];
 
-      for (const message of messages) {
-        if (!message.id) {
+      for (const entry of messages) {
+        const message = entry.message;
+
+        if (!message?.id) {
           continue;
         }
 
-        const fullMessage = await gmailService.getMessage(
-          user.access_token,
+        let fullMessage;
 
-          user.refresh_token,
+        try {
+          fullMessage = await gmailService.getMessage(
+            user.access_token,
 
-          message.id,
+            user.refresh_token,
+
+            message.id,
+          );
+        } catch (error: any) {
+          logger.error({
+            gmailMessageId: message.id,
+
+            error: error.message,
+          });
+
+          continue;
+        }
+
+        if (!fullMessage) {
+          continue;
+        }
+
+        // FILTERING
+        const labels = fullMessage.labelIds || [];
+
+        const ignoredLabels = [
+          "CATEGORY_PROMOTIONS",
+          "CATEGORY_SOCIAL",
+          "SENT",
+        ];
+
+        const shouldIgnore = labels.some((label) =>
+          ignoredLabels.includes(label),
         );
 
+        if (shouldIgnore) {
+          logger.info({
+            message: "Skipping ignored email",
+
+            labels,
+
+            gmailMessageId: fullMessage.id,
+          });
+
+          continue;
+        }
+
+        // PARSING
         const headers = fullMessage.payload?.headers || [];
 
         const subject = gmailService.getHeader(headers, "Subject");
 
         const from = gmailService.getHeader(headers, "From");
-        const emailService = new EmailService();
 
-        await emailService.createEmail({
-          gmailMessageId: fullMessage.id!,
+        const body = gmailService.extractBody(fullMessage.payload);
 
-          gmailThreadId: fullMessage.threadId!,
-
-          subject,
-
-          from,
-
-          body: "",
-        });
+        const cleanedBody = gmailService.cleanEmailBody(body);
 
         logger.info({
           gmailMessageId: fullMessage.id,
@@ -87,6 +129,50 @@ const worker = new Worker(
           subject,
 
           from,
+
+          body: cleanedBody.slice(0, 200),
+        });
+
+        // SAVE EMAIL
+        const savedEmail = await emailService.createEmail({
+          gmailMessageId: fullMessage.id!,
+
+          gmailThreadId: fullMessage.threadId!,
+
+          subject,
+
+          from,
+
+          body: cleanedBody,
+        });
+
+        logger.info({
+          message: "EMAIL SAVED",
+
+          emailId: savedEmail.id,
+
+          subject,
+        });
+
+        // AI QUEUE
+        const aiQueue = queueManager.getQueue(QueueName.AI_DRAFT);
+
+        await aiQueue.add(
+          "generate-draft",
+
+          {
+            emailId: savedEmail.id,
+
+            body: cleanedBody,
+
+            subject,
+          },
+        );
+
+        logger.info({
+          message: "AI JOB ADDED",
+
+          emailId: savedEmail.id,
         });
       }
     }
@@ -97,21 +183,34 @@ const worker = new Worker(
   },
 );
 
-worker.on("completed", (job) => {
-  logger.info({
-    worker: "EmailWorker",
-    status: "completed",
-    jobId: job.id,
-  });
-});
+worker.on(
+  "completed",
 
-worker.on("failed", (job, error) => {
-  logger.error({
-    worker: "EmailWorker",
-    status: "failed",
-    jobId: job?.id,
-    error: error.message,
-  });
-});
+  (job) => {
+    logger.info({
+      worker: "EmailWorker",
+
+      status: "completed",
+
+      jobId: job.id,
+    });
+  },
+);
+
+worker.on(
+  "failed",
+
+  (job, error) => {
+    logger.error({
+      worker: "EmailWorker",
+
+      status: "failed",
+
+      jobId: job?.id,
+
+      error: error.message,
+    });
+  },
+);
 
 logger.info("Email Worker Started");

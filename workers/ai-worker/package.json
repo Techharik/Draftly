@@ -1,0 +1,14 @@
+{
+  "name": "ai-worker",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts"
+  },
+  "dependencies": {
+    "@draftly/db": "workspace:*",
+    "@draftly/logger": "workspace:*",
+    "@draftly/queue": "workspace:*",
+    "@draftly/redis": "workspace:*",
+    "@draftly/types": "workspace:*"
+  }
+}

@@ -9,23 +9,27 @@ export interface CreateDraftInput {
 }
 
 export class DraftRepository {
-  public async create(input: CreateDraftInput) {
+  public async create(emailId: string, content: string) {
+    console.log({
+      emailId,
+      content,
+    });
+
     const result = await databaseManager.pool.query(
       `
-        INSERT INTO drafts (
-          email_id,
-          content,
-          status
-        )
-        VALUES ($1, $2, $3)
-        RETURNING *
-        `,
-      [input.emailId, input.content, input.status],
+          INSERT INTO drafts (
+            email_id,
+            content,
+            status
+          )
+          VALUES ($1, $2, $3)
+          RETURNING *
+          `,
+      [emailId, content, "pending"],
     );
 
     return result.rows[0];
   }
-
   public async findById(draftId: string) {
     const result = await databaseManager.pool.query(
       `

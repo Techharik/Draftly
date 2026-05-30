@@ -1,6 +1,6 @@
 CREATE TABLE "drafts" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"email_id" text NOT NULL,
+	"email_id" uuid NOT NULL,
 	"content" text,
 	"status" text NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL
