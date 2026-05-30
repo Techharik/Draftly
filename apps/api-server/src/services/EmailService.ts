@@ -24,10 +24,10 @@ export class EmailService {
       input.gmailMessageId,
     );
 
+    throw new Error("Testing middleware");
     if (existingEmail) {
       return existingEmail;
     }
-
     const email = await this.emailRepository.create(input);
 
     return email;

@@ -1,25 +1,21 @@
 import { Router } from "express";
 
-import { EmailService } from "../services/EmailService.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
+import { EmailController } from "../controllers/EmailController.js";
+import { validate } from "../middleware/validate.js";
+
+import { CreateEmailSchema } from "../dto/email.dto.js";
 const router = Router();
 
-const emailService = new EmailService();
+const emailController = new EmailController();
 
-router.post("/", async (req, res) => {
-  const email = await emailService.createEmail({
-    gmailMessageId: req.body.gmailMessageId,
+router.post(
+  "/",
 
-    gmailThreadId: req.body.gmailThreadId,
+  validate(CreateEmailSchema),
 
-    subject: req.body.subject,
-
-    from: req.body.from,
-
-    body: req.body.body,
-  });
-
-  res.json(email);
-});
+  asyncHandler(emailController.createEmail),
+);
 
 export const testRouter = router;
