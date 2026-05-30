@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import { GoogleOAuthService } from "../services/GoogleOAuthService.js";
 import { UserRepository } from "@draftly/db";
+import { GmailService } from "../services/GmailService.js";
 
 export class AuthController {
   private googleOAuthService;
@@ -48,6 +49,14 @@ export class AuthController {
         tokens.refresh_token,
       );
     }
+    const gmailService = new GmailService();
+
+    const profile = await gmailService.getProfile(
+      tokens.access_token!,
+      tokens.refresh_token,
+    );
+
+    console.log(profile);
 
     res.json({
       success: true,
