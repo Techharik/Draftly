@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { config } from "@draftly/config";
-console.log(config.OPENROUTER_API_KEY);
+// console.log(config.OPENROUTER_API_KEY);
 export class AIService {
   public async generateReply(emailBody: string) {
     try {
