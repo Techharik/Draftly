@@ -4,6 +4,8 @@
 
 Draftly is a real-time AI-powered email assistant that automatically:
 
+DEMO LINK - [HERE DEMO](https://www.loom.com/share/186e20944add4e2cbfc88003d5787b7c)
+
 1. Watches Gmail inbox activity
 2. Receives Gmail push notifications
 3. Processes new emails asynchronously
