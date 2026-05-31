@@ -1,4 +1,3 @@
-
 # Draftly — AI Email Assistant
 
 ## Overview
@@ -15,13 +14,13 @@ Draftly is a real-time AI-powered email assistant that automatically:
 
 The system is designed using:
 
-* Event-driven architecture
-* Queue-based background processing
-* Distributed workers
-* Redis Pub/Sub
-* Real-time WebSocket updates
-* Gmail incremental synchronization
-* Monorepo architecture
+- Event-driven architecture
+- Queue-based background processing
+- Distributed workers
+- Redis Pub/Sub
+- Real-time WebSocket updates
+- Gmail incremental synchronization
+- Monorepo architecture
 
 ---
 
@@ -151,29 +150,29 @@ packages/
 
 ## Backend
 
-* Node.js
-* Express.js
-* BullMQ
-* Redis
-* Socket.IO
-* PostgreSQL
-* Google Gmail API
-* Google Pub/Sub
+- Node.js
+- Express.js
+- BullMQ
+- Redis
+- Socket.IO
+- PostgreSQL
+- Google Gmail API
+- Google Pub/Sub
 
 ## Frontend
 
-* Next.js
-* React
-* Tailwind CSS
-* Socket.IO Client
+- Next.js
+- React
+- Tailwind CSS
+- Socket.IO Client
 
 ## Infrastructure
 
-* Redis Pub/Sub
-* BullMQ Queues
-* Google Cloud Pub/Sub
-* Gmail Push Notifications
-* WebSockets
+- Redis Pub/Sub
+- BullMQ Queues
+- Google Cloud Pub/Sub
+- Gmail Push Notifications
+- WebSockets
 
 ---
 
@@ -357,10 +356,10 @@ Receives Event
 
 This prevents:
 
-* Timeouts
-* Slow webhook responses
-* Gmail retry storms
-* Blocking API threads
+- Timeouts
+- Slow webhook responses
+- Gmail retry storms
+- Blocking API threads
 
 ---
 
@@ -463,9 +462,9 @@ history.messages
 
 caused:
 
-* deleted messages
-* stale references
-* duplicate entities
+- deleted messages
+- stale references
+- duplicate entities
 
 Final solution:
 
@@ -491,9 +490,9 @@ SENT
 
 This prevents:
 
-* newsletters
-* social notifications
-* self-sent replies
+- newsletters
+- social notifications
+- self-sent replies
 
 ---
 
@@ -501,11 +500,11 @@ This prevents:
 
 The worker extracts:
 
-* Subject
-* Sender
-* Plain text body
-* Thread ID
-* Gmail Message ID
+- Subject
+- Sender
+- Plain text body
+- Thread ID
+- Gmail Message ID
 
 ---
 
@@ -513,16 +512,16 @@ The worker extracts:
 
 The system removes:
 
-* quoted replies
-* previous threads
-* extra whitespace
-* email formatting noise
+- quoted replies
+- previous threads
+- extra whitespace
+- email formatting noise
 
 This improves:
 
-* AI quality
-* prompt cleanliness
-* response accuracy
+- AI quality
+- prompt cleanliness
+- response accuracy
 
 ---
 
@@ -554,8 +553,8 @@ Publish Realtime Event
 
 The project supports:
 
-* OpenRouter
-* OpenAI-compatible APIs
+- OpenRouter
+- OpenAI-compatible APIs
 
 The AI worker is isolated from the API server for scalability.
 
@@ -571,16 +570,16 @@ Workers automatically retry failed jobs.
 
 Transient failures happen frequently:
 
-* AI provider rate limits
-* Gmail API issues
-* Network interruptions
-* Redis temporary failures
+- AI provider rate limits
+- Gmail API issues
+- Network interruptions
+- Redis temporary failures
 
 ### Retry Benefits
 
-* Increased reliability
-* Eventual consistency
-* Reduced data loss
+- Increased reliability
+- Eventual consistency
+- Reduced data loss
 
 ---
 
@@ -635,9 +634,9 @@ Transient failures happen frequently:
 
 Stores:
 
-* Google account info
-* OAuth tokens
-* Gmail history checkpoint
+- Google account info
+- OAuth tokens
+- Gmail history checkpoint
 
 ### Important Column
 
@@ -653,11 +652,11 @@ This powers incremental Gmail sync.
 
 Stores:
 
-* Gmail message ID
-* Gmail thread ID
-* Sender
-* Subject
-* Cleaned body
+- Gmail message ID
+- Gmail thread ID
+- Sender
+- Subject
+- Cleaned body
 
 ---
 
@@ -665,9 +664,9 @@ Stores:
 
 Stores:
 
-* AI-generated draft content
-* Approval status
-* Email relationship
+- AI-generated draft content
+- Approval status
+- Email relationship
 
 ---
 
@@ -736,9 +735,9 @@ Worker
 
 This keeps:
 
-* workers isolated
-* architecture scalable
-* communication decoupled
+- workers isolated
+- architecture scalable
+- communication decoupled
 
 ---
 
@@ -770,9 +769,9 @@ socket.on("draft-generated")
 
 When a new draft is generated:
 
-* frontend fetches latest emails
-* UI updates instantly
-* no manual refresh required
+- frontend fetches latest emails
+- UI updates instantly
+- no manual refresh required
 
 ---
 
@@ -780,11 +779,11 @@ When a new draft is generated:
 
 ## Features
 
-* Inbox view
-* Original email display
-* Editable AI draft
-* Approve & Send flow
-* Realtime updates
+- Inbox view
+- Original email display
+- Editable AI draft
+- Approve & Send flow
+- Realtime updates
 
 ---
 
@@ -843,10 +842,10 @@ gmail.users.messages.send()
 
 Important fields:
 
-* threadId
-* encoded raw email
-* subject
-* content
+- threadId
+- encoded raw email
+- subject
+- content
 
 ---
 
@@ -872,9 +871,9 @@ Reply stays in original Gmail conversation
 
 Prevents:
 
-* API blocking
-* worker crashes affecting frontend
-* webhook delays
+- API blocking
+- worker crashes affecting frontend
+- webhook delays
 
 ---
 
@@ -882,9 +881,9 @@ Prevents:
 
 Allows:
 
-* distributed workers
-* horizontal scaling
-* decoupled services
+- distributed workers
+- horizontal scaling
+- decoupled services
 
 ---
 
@@ -892,9 +891,9 @@ Allows:
 
 Using `last_history_id` ensures:
 
-* no duplicate processing
-* no missing emails
-* accurate Gmail synchronization
+- no duplicate processing
+- no missing emails
+- accurate Gmail synchronization
 
 ---
 
@@ -902,13 +901,13 @@ Using `last_history_id` ensures:
 
 ## The System Is:
 
-* Event-driven
-* Realtime
-* Distributed
-* Queue-based
-* Fault tolerant
-* Scalable
-* Async-first
+- Event-driven
+- Realtime
+- Distributed
+- Queue-based
+- Fault tolerant
+- Scalable
+- Async-first
 
 ---
 
@@ -991,31 +990,392 @@ Reply sent through Gmail
 
 ### Authentication
 
-* JWT auth
-* Session handling
-* Multi-user frontend
+- JWT auth
+- Session handling
+- Multi-user frontend
 
 ### AI Improvements
 
-* personalized reply tone
-* context memory
-* conversation summarization
+- personalized reply tone
+- context memory
+- conversation summarization
 
 ### Infrastructure
 
-* Docker deployment
-* Kubernetes scaling
-* Redis clustering
-* dedicated websocket gateway
+- Docker deployment
+- Kubernetes scaling
+- Redis clustering
+- dedicated websocket gateway
 
 ### Product Features
 
-* reject workflow
-* archived emails
-* search
-* analytics dashboard
-* typing indicators
-* multiple inbox support
+- reject workflow
+- archived emails
+- search
+- analytics dashboard
+- typing indicators
+- multiple inbox support
+
+---
+
+# Local Development Setup
+
+## Required Software
+
+Install the following before running the project:
+
+### Node.js
+
+Recommended:
+
+```txt
+Node.js >= 20
+```
+
+---
+
+### pnpm
+
+Install globally:
+
+```bash
+npm install -g pnpm
+```
+
+---
+
+### PostgreSQL
+
+Used for:
+
+- users
+- emails
+- drafts
+
+---
+
+### Redis
+
+Used for:
+
+- BullMQ
+- Pub/Sub
+- realtime communication
+
+---
+
+### ngrok
+
+Used for:
+
+- exposing localhost webhook endpoint
+- Gmail Pub/Sub push delivery
+
+---
+
+# Environment Variables
+
+## API Server
+
+Create:
+
+```txt
+apps/api-server/.env
+```
+
+Example:
+
+```env
+PORT=3000
+
+DATABASE_URL=postgres://postgres:password@localhost:5432/draftly
+
+REDIS_HOST=localhost
+REDIS_PORT=6379
+
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+GOOGLE_REDIRECT_URI=http://localhost:3000/auth/google/callback
+
+OPENROUTER_API_KEY=your_openrouter_key
+```
+
+---
+
+# Google Cloud Setup
+
+## Enable APIs
+
+Enable:
+
+- Gmail API
+- Pub/Sub API
+
+---
+
+## Create OAuth Credentials
+
+Inside Google Cloud:
+
+```txt
+APIs & Services
+  → Credentials
+  → OAuth Client ID
+```
+
+Authorized redirect URI:
+
+```txt
+http://localhost:3000/auth/google/callback
+```
+
+---
+
+## Create Pub/Sub Topic
+
+Example:
+
+```txt
+draftly-gmail
+```
+
+---
+
+## Create Push Subscription
+
+Push endpoint:
+
+```txt
+https://YOUR_NGROK_URL/webhooks/gmail
+```
+
+---
+
+# Database Setup
+
+## Create Database
+
+```sql
+CREATE DATABASE draftly;
+```
+
+---
+
+## Run Migrations
+
+Run schema migrations before starting services.
+
+Ensure tables exist:
+
+- users
+- emails
+- drafts
+
+---
+
+# Install Dependencies
+
+From project root:
+
+```bash
+pnpm install
+```
+
+---
+
+# Start Redis
+
+Example:
+
+```bash
+redis-server
+```
+
+---
+
+# Start ngrok
+
+Expose backend:
+
+```bash
+ngrok http 3000
+```
+
+Copy generated HTTPS URL.
+
+Update Google Pub/Sub push subscription with:
+
+```txt
+https://YOUR_NGROK_URL/webhooks/gmail
+```
+
+---
+
+# Run Services
+
+## Start API Server
+
+```bash
+pnpm --filter api-server dev
+```
+
+---
+
+## Start Email Worker
+
+```bash
+pnpm --filter email-worker dev
+```
+
+---
+
+## Start AI Worker
+
+```bash
+pnpm --filter ai-worker dev
+```
+
+---
+
+## Start Frontend
+
+```bash
+pnpm --filter web dev
+```
+
+---
+
+# First-Time Setup Flow
+
+## Step 1
+
+Start:
+
+- PostgreSQL
+- Redis
+- ngrok
+
+---
+
+## Step 2
+
+Run:
+
+- API server
+- workers
+- frontend
+
+---
+
+## Step 3
+
+Login using:
+
+```txt
+http://localhost:3000/auth/google
+```
+
+This:
+
+- stores tokens
+- registers Gmail watch
+- saves initial history checkpoint
+
+---
+
+## Step 4
+
+Send email from another Gmail account.
+
+Expected flow:
+
+```txt
+Email arrives
+→ webhook triggered
+→ email worker processes message
+→ AI draft generated
+→ realtime UI update
+→ approve/send reply
+```
+
+---
+
+# Recommended Terminal Layout
+
+## Terminal 1
+
+```bash
+pnpm --filter api-server dev
+```
+
+## Terminal 2
+
+```bash
+pnpm --filter email-worker dev
+```
+
+## Terminal 3
+
+```bash
+pnpm --filter ai-worker dev
+```
+
+## Terminal 4
+
+```bash
+pnpm --filter web dev
+```
+
+## Terminal 5
+
+```bash
+ngrok http 3000
+```
+
+---
+
+# Common Debugging Checks
+
+## Realtime Not Updating
+
+Check:
+
+- Socket.IO connection
+- event names
+- Redis subscriber
+- `startRealtime()` initialization
+
+---
+
+## Gmail Webhook Not Triggering
+
+Check:
+
+- ngrok URL
+- Pub/Sub push endpoint
+- Gmail watch registration
+- topic permissions
+
+---
+
+## History API Errors
+
+Check:
+
+- `last_history_id`
+- Gmail checkpoint synchronization
+- proper string conversion
+
+---
+
+## AI Worker Failures
+
+Check:
+
+- OpenRouter API key
+- rate limits
+- worker logs
+- retry configuration
 
 ---
 
@@ -1023,23 +1383,23 @@ Reply sent through Gmail
 
 Draftly demonstrates a production-style architecture using:
 
-* Gmail Push Notifications
-* Google Pub/Sub
-* BullMQ Workers
-* Redis Pub/Sub
-* Realtime WebSockets
-* AI Draft Generation
-* Event-driven workflows
-* Incremental Gmail synchronization
-* Editable AI-assisted replies
+- Gmail Push Notifications
+- Google Pub/Sub
+- BullMQ Workers
+- Redis Pub/Sub
+- Realtime WebSockets
+- AI Draft Generation
+- Event-driven workflows
+- Incremental Gmail synchronization
+- Editable AI-assisted replies
 
 The project combines:
 
-* backend architecture
-* distributed systems
-* async processing
-* realtime infrastructure
-* AI integration
-* frontend reactivity
+- backend architecture
+- distributed systems
+- async processing
+- realtime infrastructure
+- AI integration
+- frontend reactivity
 
 into a complete full-stack intelligent email assistant.
