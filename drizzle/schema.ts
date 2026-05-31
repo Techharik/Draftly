@@ -1,19 +1,7 @@
-import { pgTable, unique, uuid, text, timestamp } from "drizzle-orm/pg-core"
+import { pgTable, uuid, text, timestamp, unique } from "drizzle-orm/pg-core"
 import { sql } from "drizzle-orm"
 
 
-
-export const users = pgTable("users", {
-	id: uuid().defaultRandom().primaryKey().notNull(),
-	email: text().notNull(),
-	googleId: text("google_id").notNull(),
-	accessToken: text("access_token"),
-	refreshToken: text("refresh_token"),
-	createdAt: timestamp("created_at", { mode: 'string' }).defaultNow().notNull(),
-}, (table) => [
-	unique("users_email_unique").on(table.email),
-	unique("users_google_id_unique").on(table.googleId),
-]);
 
 export const drafts = pgTable("drafts", {
 	id: uuid().defaultRandom().primaryKey().notNull(),
@@ -22,6 +10,19 @@ export const drafts = pgTable("drafts", {
 	status: text().notNull(),
 	createdAt: timestamp("created_at", { mode: 'string' }).defaultNow().notNull(),
 });
+
+export const users = pgTable("users", {
+	id: uuid().defaultRandom().primaryKey().notNull(),
+	email: text().notNull(),
+	googleId: text("google_id").notNull(),
+	accessToken: text("access_token"),
+	refreshToken: text("refresh_token"),
+	createdAt: timestamp("created_at", { mode: 'string' }).defaultNow().notNull(),
+	lastHistoryId: text("last_history_id"),
+}, (table) => [
+	unique("users_email_unique").on(table.email),
+	unique("users_google_id_unique").on(table.googleId),
+]);
 
 export const emails = pgTable("emails", {
 	id: uuid().defaultRandom().primaryKey().notNull(),

@@ -1,23 +1,9 @@
 import { Router } from "express";
 
-import { asyncHandler } from "../utils/asyncHandler.js";
-
-import { validate } from "../middleware/validate.js";
-
-import { GmailWebhookSchema } from "../dto/gmailWebhook.dto.js";
-
-import { GmailWebhookController } from "../controllers/GmailWebhookController.js";
+import { gmailWebhook } from "../controllers/WebhookController.js";
 
 const router = Router();
 
-const controller = new GmailWebhookController();
+router.post("/gmail", gmailWebhook);
 
-router.post(
-  "/gmail",
-
-  validate(GmailWebhookSchema),
-
-  asyncHandler(controller.handleWebhook),
-);
-
-export const webhookRouter = router;
+export default router;

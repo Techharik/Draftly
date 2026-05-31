@@ -1,5 +1,5 @@
 {
-  "id": "267a0466-435d-4992-a29d-9aed5559cd6e",
+  "id": "9495684b-4903-42e3-9a70-aa38dcd6d18a",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -155,6 +155,12 @@
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
+        },
+        "last_history_id": {
+          "name": "last_history_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {},

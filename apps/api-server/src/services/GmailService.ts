@@ -1,8 +1,16 @@
 import { google } from "googleapis";
 
+import { config } from "@draftly/config";
+
 export class GmailService {
   public async getGmailClient(accessToken: string, refreshToken?: string) {
-    const auth = new google.auth.OAuth2();
+    const auth = new google.auth.OAuth2(
+      config.GOOGLE_CLIENT_ID,
+
+      config.GOOGLE_CLIENT_SECRET,
+
+      config.GOOGLE_REDIRECT_URI,
+    );
 
     auth.setCredentials({
       access_token: accessToken,
@@ -12,9 +20,11 @@ export class GmailService {
 
     return google.gmail({
       version: "v1",
+
       auth,
     });
   }
+
   public getHeader(headers: any[] = [], name: string) {
     return headers.find(
       (header) => header.name?.toLowerCase() === name.toLowerCase(),
@@ -46,6 +56,7 @@ export class GmailService {
 
     return response.data;
   }
+
   public async getMessage(
     accessToken: string,
     refreshToken: string | undefined,
@@ -62,6 +73,20 @@ export class GmailService {
     return response.data;
   }
 
+  public async watchInbox(accessToken: string, refreshToken: string) {
+    const gmail = await this.getGmailClient(accessToken, refreshToken);
+
+    return gmail.users.watch({
+      userId: "me",
+
+      requestBody: {
+        topicName: "projects/draftly-497908/topics/draftly-gmail",
+
+        labelIds: ["INBOX"],
+      },
+    });
+  }
+
   public decodeBase64(data?: string) {
     if (!data) {
       return "";
@@ -69,6 +94,7 @@ export class GmailService {
 
     return Buffer.from(data, "base64").toString("utf-8");
   }
+
   public extractBody(payload: any): string {
     if (!payload) {
       return "";

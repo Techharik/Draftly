@@ -12,4 +12,5 @@ export const users = pgTable("users", {
   refreshToken: text("refresh_token"),
 
   createdAt: timestamp("created_at").defaultNow().notNull(),
+  lastHistoryId: text("last_history_id"),
 });

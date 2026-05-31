@@ -24,6 +24,7 @@ CREATE TABLE "users" (
 	"access_token" text,
 	"refresh_token" text,
 	"created_at" timestamp DEFAULT now() NOT NULL,
+	"last_history_id" text,
 	CONSTRAINT "users_email_unique" UNIQUE("email"),
 	CONSTRAINT "users_google_id_unique" UNIQUE("google_id")
 );

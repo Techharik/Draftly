@@ -36,12 +36,21 @@ const worker = new Worker(
       throw new Error("User not found");
     }
 
+    logger.info({
+      storedHistoryId: user.last_history_id,
+
+      type: typeof user.last_history_id,
+    });
+
+    // IMPORTANT:
+    // use PREVIOUS checkpoint
+    // not incoming webhook historyId
     const history = await gmailService.getHistory(
       user.access_token,
 
       user.refresh_token,
 
-      job.data.historyId,
+      String(user.last_history_id),
     );
 
     logger.info({
@@ -51,7 +60,7 @@ const worker = new Worker(
     const historyItems = history.history || [];
 
     for (const item of historyItems) {
-      // ONLY NEWLY ADDED EMAILS
+      // ONLY NEW EMAILS
       const messages = item.messagesAdded || [];
 
       for (const entry of messages) {
@@ -176,6 +185,19 @@ const worker = new Worker(
         });
       }
     }
+
+    // UPDATE CHECKPOINT
+    await userRepository.updateHistoryId(
+      user.id,
+
+      String(job.data.historyId),
+    );
+
+    logger.info({
+      message: "History checkpoint updated",
+
+      historyId: job.data.historyId,
+    });
   },
 
   {
