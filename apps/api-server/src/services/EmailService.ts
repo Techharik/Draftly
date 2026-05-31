@@ -32,4 +32,8 @@ export class EmailService {
 
     return email;
   }
+
+  public async getInboxEmails() {
+    return this.emailRepository.getInboxEmails();
+  }
 }

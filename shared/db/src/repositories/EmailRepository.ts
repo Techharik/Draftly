@@ -65,4 +65,29 @@ export class EmailRepository {
 
     return result.rows[0];
   }
+
+  public async getInboxEmails() {
+    const result = await databaseManager.pool.query(
+      `
+          SELECT
+            emails.id,
+            emails.subject,
+            emails.from,
+            emails.body,
+            emails.gmail_thread_id,
+
+            drafts.content AS draft,
+            drafts.status
+
+          FROM emails
+
+          LEFT JOIN drafts
+          ON drafts.email_id = emails.id
+
+          ORDER BY emails.created_at DESC
+        `,
+    );
+
+    return result.rows;
+  }
 }

@@ -141,4 +141,39 @@ export class GmailService {
 
     return cleaned;
   }
+
+  public async sendReply(
+    accessToken: string,
+    refreshToken: string,
+    to: string,
+    subject: string,
+    content: string,
+    threadId: string,
+  ) {
+    const gmail = await this.getGmailClient(accessToken, refreshToken);
+
+    const message = [
+      `To: ${to}`,
+      `Subject: Re: ${subject}`,
+      "Content-Type: text/plain; charset=utf-8",
+      "",
+      content,
+    ].join("\n");
+
+    const encodedMessage = Buffer.from(message)
+      .toString("base64")
+      .replace(/\+/g, "-")
+      .replace(/\//g, "_")
+      .replace(/=+$/, "");
+
+    return gmail.users.messages.send({
+      userId: "me",
+
+      requestBody: {
+        raw: encodedMessage,
+
+        threadId,
+      },
+    });
+  }
 }

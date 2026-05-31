@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { config } from "@draftly/config";
-
+console.log(config.OPENROUTER_API_KEY);
 export class AIService {
   public async generateReply(emailBody: string) {
     try {
@@ -33,7 +33,7 @@ export class AIService {
 
         {
           headers: {
-            Authorization: `Bearer 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`,
+            Authorization: `Bearer ${config.OPENROUTER_API_KEY}`,
 
             "Content-Type": "application/json",
           },
